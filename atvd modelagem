@@ -1,0 +1,57 @@
+#include <string.h>
+#include <stdio.h>
+#include <locale.h>
+#include <stdlib.h>
+
+int main()
+{
+    setlocale(LC_ALL, "portuguese");
+    float valorCompra, totalDaCompraDesconto, totalDaCompra, desconto;
+    float meses, quantidadeCompra;
+    char clienteNovo[1];
+    
+    printf("\t\n-|Desconto para clientes fiéis|-\n");
+    printf("\t\n--Enunciado: Clientes que fizeram mais de 5 compras nos últimos 6 meses");
+    printf("\t\ntêm direito a um desconto de 10porcento no valor total da próxima compra.--\n\n");
+    
+    printf("\t\n--Enunciado: Novos clientes têm  um limite de crédito de R$ 500, ou  seja, não  podem fazer  compras com valor");
+    printf("\t\ntotal superior a esse limite até que completem  3 meses como clientes ativos--\n\n");
+    
+    printf("Informe S para cliente novo e N se não for: \n");
+    gets(clienteNovo);
+    
+    printf("Informe a quantidade de meses (meses em que continuou comprando): \n");
+    scanf("%f" ,&meses);
+    
+    printf("Informe a quantidade de compras: \n");
+    scanf("%f" ,&quantidadeCompra);
+    
+    printf("Informe o valor da compra: \n");
+    scanf("%f" ,&valorCompra);
+    
+    system("cls || clear");
+    
+    if(clienteNovo == "S" && valorCompra > 500)
+	{
+    	printf("Limite atingido, por favor reiniciar sistema com um valor menor!");
+	}else {
+		
+		if (quantidadeCompra >= 5 && meses >= 6)
+    {
+    	desconto = valorCompra * 0.1;
+    	totalDaCompraDesconto = valorCompra - desconto;
+        printf("--Compra recebeu desconto--\n");
+        printf("Total da Compra: %.1f" ,totalDaCompraDesconto);    
+    } else {
+    	printf("--Compra não recebeu desconto por causa de alguma regra dos Enunciados--\n");
+        printf("Total da Compra: %.1f" ,valorCompra);
+    }
+    
+}
+    
+     
+    
+    
+
+    return 0;
+}
