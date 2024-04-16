@@ -1,0 +1,85 @@
+/* Lógico_1: */
+
+CREATE TABLE Evento (
+    idEvento INT PRIMARY KEY,
+    nome VARCHAR,
+    data DATE,
+    local VARCHAR,
+    qntdIngresso INT,
+    valorBase FLOAT
+);
+
+CREATE TABLE Empresa (
+    cpnj INT PRIMARY KEY,
+    nome VARCHAR,
+    endereco VARCHAR
+);
+
+CREATE TABLE Ingresso (
+    codigoDeIdentificacao INT PRIMARY KEY,
+    dataDeCompra DATE,
+    valorPago FLOAT
+);
+
+CREATE TABLE Cliente (
+    cpf VARCHAR PRIMARY KEY,
+    nome VARCHAR,
+    dataDeNascimento DATE,
+    endereco VARCHAR,
+    telefone VARCHAR,
+    e_mail VARCHAR
+);
+
+CREATE TABLE Telefone (
+    fk_Empresa_cpnj INT
+);
+
+CREATE TABLE possui (
+    fk_Evento_idEvento INT,
+    fk_Empresa_cpnj INT
+);
+
+CREATE TABLE vendem (
+    fk_Evento_idEvento INT,
+    fk_Ingresso_codigoDeIdentificacao INT
+);
+
+CREATE TABLE tem (
+    fk_Ingresso_codigoDeIdentificacao INT,
+    fk_Cliente_cpf VARCHAR
+);
+ 
+ALTER TABLE Telefone ADD CONSTRAINT FK_Telefone_1
+    FOREIGN KEY (fk_Empresa_cpnj)
+    REFERENCES Empresa (cpnj)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE possui ADD CONSTRAINT FK_possui_1
+    FOREIGN KEY (fk_Evento_idEvento)
+    REFERENCES Evento (idEvento)
+    ON DELETE RESTRICT ON UPDATE NO ACTION;
+ 
+ALTER TABLE possui ADD CONSTRAINT FK_possui_2
+    FOREIGN KEY (fk_Empresa_cpnj)
+    REFERENCES Empresa (cpnj)
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+ 
+ALTER TABLE vendem ADD CONSTRAINT FK_vendem_1
+    FOREIGN KEY (fk_Evento_idEvento)
+    REFERENCES Evento (idEvento)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE vendem ADD CONSTRAINT FK_vendem_2
+    FOREIGN KEY (fk_Ingresso_codigoDeIdentificacao)
+    REFERENCES Ingresso (codigoDeIdentificacao)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE tem ADD CONSTRAINT FK_tem_1
+    FOREIGN KEY (fk_Ingresso_codigoDeIdentificacao)
+    REFERENCES Ingresso (codigoDeIdentificacao)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE tem ADD CONSTRAINT FK_tem_2
+    FOREIGN KEY (fk_Cliente_cpf)
+    REFERENCES Cliente (cpf)
+    ON DELETE RESTRICT ON UPDATE NO ACTION;
